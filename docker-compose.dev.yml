@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: quiz-mysql-dev
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: JavaResults
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mysql-dev-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - quiz-dev-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: quiz-backend-dev
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      - DB_URL=jdbc:mysql://mysql:3306/JavaResults?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+      - JWT_SECRET=404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+      - JUDGE0_URL=https://ce.judge0.com
+      - JUDGE0_API_KEY=
+      - ADMIN_EMAIL=admin@assessment.com
+      - ADMIN_PASSWORD=Admin@123
+      - FRONTEND_URL=http://localhost:5173,http://localhost
+    networks:
+      - quiz-dev-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: quiz-frontend-dev
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - quiz-dev-network
+
+volumes:
+  mysql-dev-data:
+
+networks:
+  quiz-dev-network:
+    driver: bridge
