@@ -32,15 +32,15 @@ export const AdminLogin = () => {
   };
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '2rem', background: '#f8fafc' }}>
-      <div style={{ width: '100%', maxWidth: '420px' }}>
+    <div className="admin-login-page" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '2rem', background: '#f8fafc' }}>
+      <div className="admin-login-content" style={{ width: '100%', maxWidth: '420px' }}>
         <div style={{ marginBottom: '1.25rem' }}>
           <Link to="/" className="btn btn-ghost" style={{ fontSize: '0.85rem' }}>
             <ArrowLeft size={16} /> Back to Student Assessment
           </Link>
         </div>
 
-        <div className="card" style={{ padding: '2rem', boxShadow: '0 10px 25px -5px rgba(0,0,0,0.06)' }}>
+        <div className="card admin-login-card" style={{ padding: '2rem', boxShadow: '0 10px 25px -5px rgba(0,0,0,0.06)' }}>
           <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
             <div style={{ display: 'inline-flex', padding: '12px', borderRadius: '12px', background: '#eff6ff', color: '#2563eb', marginBottom: '0.75rem' }}>
               <ShieldCheck size={32} />

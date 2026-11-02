@@ -50,14 +50,14 @@ export const StudentDashboard = () => {
   };
 
   return (
-    <div className="main-content">
+    <div className="main-content student-dashboard">
       {/* Student Profile Overview Banner */}
       <div className="card" style={{ padding: '1.5rem', marginBottom: '2rem', background: 'linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%)', color: 'white', border: 'none' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
           <div>
             <span style={{ fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.05em', opacity: 0.85 }}>Candidate Dashboard</span>
             <h1 style={{ fontSize: '1.75rem', fontWeight: 700, margin: '0.2rem 0' }}>{user?.fullName || user?.email}</h1>
-            <div style={{ display: 'flex', gap: '1.25rem', opacity: 0.9, fontSize: '0.9rem', marginTop: '0.4rem' }}>
+            <div className="student-profile-details" style={{ display: 'flex', gap: '1.25rem', opacity: 0.9, fontSize: '0.9rem', marginTop: '0.4rem' }}>
               <span>Roll Number: <strong>{user?.rollNumber || 'N/A'}</strong></span>
               <span>Section: <strong>{user?.section || 'N/A'}</strong></span>
               <span>Account: <strong>{user?.email}</strong></span>
@@ -70,7 +70,7 @@ export const StudentDashboard = () => {
         </div>
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+      <div className="student-assessment-heading" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
         <div>
           <h2 style={{ fontSize: '1.3rem', fontWeight: 700, color: '#0f172a' }}>Available Assessments</h2>
           <p style={{ color: '#64748b', fontSize: '0.875rem' }}>Select an active assessment to begin your test session</p>
@@ -90,7 +90,7 @@ export const StudentDashboard = () => {
           <p style={{ color: '#64748b', marginTop: '0.25rem' }}>Please contact your administrator or instructor to activate your test.</p>
         </div>
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))', gap: '1.5rem' }}>
+        <div className="student-test-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))', gap: '1.5rem' }}>
           {tests.map((test) => (
             <div key={test.id} className="card" style={{ display: 'flex', flexDirection: 'column' }}>
               <div className="card-header" style={{ alignItems: 'flex-start' }}>
@@ -139,8 +139,8 @@ export const StudentDashboard = () => {
 
       {/* Pre-Test Modal as specified in user prompt */}
       {selectedTest && (
-        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(15, 23, 42, 0.65)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100, padding: '1rem' }}>
-          <div className="card" style={{ maxWidth: '540px', width: '100%', overflow: 'hidden', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}>
+        <div className="student-verification-overlay" style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(15, 23, 42, 0.65)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100, padding: '1rem' }}>
+          <div className="card student-verification-modal" style={{ maxWidth: '540px', width: '100%', overflow: 'hidden', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}>
             <div style={{ background: '#1e40af', color: 'white', padding: '1.25rem 1.5rem' }}>
               <h3 style={{ fontSize: '1.2rem', fontWeight: 700 }}>Examination Candidate Verification</h3>
               <p style={{ fontSize: '0.85rem', opacity: 0.85, marginTop: '2px' }}>Please verify your credentials before initiating the timed session</p>
@@ -149,7 +149,7 @@ export const StudentDashboard = () => {
             <div style={{ padding: '1.5rem' }}>
               {/* Candidate Info Table */}
               <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '1rem', marginBottom: '1.25rem' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: '130px 1fr', rowGap: '0.5rem', fontSize: '0.9rem' }}>
+                <div className="verification-details-grid" style={{ display: 'grid', gridTemplateColumns: '130px 1fr', rowGap: '0.5rem', fontSize: '0.9rem' }}>
                   <span style={{ color: '#64748b' }}>Student Name:</span>
                   <strong style={{ color: '#0f172a' }}>{user?.fullName || 'Student'}</strong>
 

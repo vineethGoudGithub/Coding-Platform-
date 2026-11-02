@@ -82,7 +82,7 @@ export const AdminResults = () => {
   };
 
   return (
-    <div className="main-content">
+    <div className="main-content admin-results">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.75rem', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
           <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0f172a' }}>Assessment Submissions &amp; Grades</h1>
@@ -96,7 +96,7 @@ export const AdminResults = () => {
 
       {/* Filter and Search Bar */}
       <div className="card" style={{ padding: '1rem 1.25rem', marginBottom: '1.5rem' }}>
-        <form onSubmit={handleSearchSubmit} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr)) 120px', gap: '0.75rem', alignItems: 'center' }}>
+        <form className="admin-results-filters" onSubmit={handleSearchSubmit} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr)) 120px', gap: '0.75rem', alignItems: 'center' }}>
           <div>
             <div style={{ position: 'relative' }}>
               <input
@@ -255,8 +255,8 @@ export const AdminResults = () => {
 
       {/* Candidate Submission Inspection Modal */}
       {selectedAttemptId && (
-        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(15, 23, 42, 0.65)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100, padding: '1.5rem' }}>
-          <div className="card" style={{ maxWidth: '850px', width: '100%', maxHeight: '90vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        <div className="admin-detail-overlay" style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(15, 23, 42, 0.65)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100, padding: '1.5rem' }}>
+          <div className="card admin-detail-modal" style={{ maxWidth: '850px', width: '100%', maxHeight: '90vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1.25rem 1.5rem', borderBottom: '1px solid #e2e8f0', background: '#f8fafc' }}>
               <div>
                 <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: '#0f172a' }}>

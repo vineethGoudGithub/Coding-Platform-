@@ -38,7 +38,7 @@ export const AdminDashboard = () => {
   };
 
   return (
-    <div className="main-content">
+    <div className="main-content admin-dashboard">
       {/* Header bar */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
@@ -49,7 +49,7 @@ export const AdminDashboard = () => {
           <p style={{ color: '#64748b', fontSize: '0.9rem' }}>Real-time overview of tests, candidate attempts, and performance</p>
         </div>
 
-        <div style={{ display: 'flex', gap: '0.75rem' }}>
+        <div className="admin-dashboard-actions" style={{ display: 'flex', gap: '0.75rem' }}>
           <button onClick={handleExportCsv} className="btn btn-secondary">
             <Download size={16} /> Export CSV
           </button>
@@ -67,7 +67,7 @@ export const AdminDashboard = () => {
       ) : (
         <>
           {/* Top 5 Metrics Cards */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))', gap: '1.25rem', marginBottom: '2.5rem' }}>
+          <div className="admin-metrics-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))', gap: '1.25rem', marginBottom: '2.5rem' }}>
             {/* Total Students */}
             <div className="card" style={{ padding: '1.5rem' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: '#64748b', marginBottom: '0.5rem' }}>

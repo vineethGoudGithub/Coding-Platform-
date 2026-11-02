@@ -38,7 +38,7 @@ export const AdminStudents = () => {
   });
 
   return (
-    <div className="main-content">
+    <div className="main-content admin-students">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.75rem', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
           <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0f172a' }}>Candidate Directory</h1>

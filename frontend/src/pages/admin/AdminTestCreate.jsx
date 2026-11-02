@@ -134,8 +134,8 @@ export const AdminTestCreate = () => {
   }
 
   return (
-    <div className="main-content" style={{ maxWidth: '1020px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+    <div className="main-content admin-test-editor" style={{ maxWidth: '1020px' }}>
+      <div className="admin-editor-topbar" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
         <Link to="/admin/tests" className="btn btn-secondary">
           <ArrowLeft size={16} /> Back to Tests
         </Link>
@@ -215,13 +215,13 @@ export const AdminTestCreate = () => {
         </div>
 
         {/* Questions Section */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+        <div className="admin-editor-question-tools" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
           <div>
             <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#0f172a' }}>Assessment Questions ({questions.length})</h2>
             <p style={{ color: '#64748b', fontSize: '0.85rem' }}>Configure MCQs and Coding problems with hidden evaluation cases</p>
           </div>
 
-          <div style={{ display: 'flex', gap: '0.5rem' }}>
+          <div className="admin-editor-add-buttons" style={{ display: 'flex', gap: '0.5rem' }}>
             <button type="button" onClick={handleAddMcq} className="btn btn-secondary">
               <Plus size={15} /> Add MCQ
             </button>
@@ -239,8 +239,8 @@ export const AdminTestCreate = () => {
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
             {questions.map((q, idx) => (
-              <div key={idx} className="card" style={{ padding: '1.5rem' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', borderBottom: '1px solid #e2e8f0', paddingBottom: '0.75rem' }}>
+              <div key={idx} className="card admin-question-card" style={{ padding: '1.5rem' }}>
+              <div className="admin-question-card-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', borderBottom: '1px solid #e2e8f0', paddingBottom: '0.75rem' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
                     <span style={{ fontWeight: 700, fontSize: '1.05rem', color: '#1e40af' }}>
                       Question {idx + 1}
@@ -346,8 +346,8 @@ export const AdminTestCreate = () => {
 
                 {/* Coding Details Builder */}
                 {q.questionType === 'CODING' && q.codingQuestion && (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', background: '#f8fafc', padding: '1rem', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                  <div className="admin-coding-fields" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', background: '#f8fafc', padding: '1rem', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                  <div className="admin-coding-samples" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                       <div className="form-group">
                         <label className="form-label">Sample Input</label>
                         <textarea
@@ -413,9 +413,9 @@ export const AdminTestCreate = () => {
                         </button>
                       </div>
 
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                      <div className="admin-test-cases" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                         {q.codingQuestion.testCases?.map((tc, tcIdx) => (
-                          <div key={tcIdx} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 110px 40px', gap: '0.5rem', alignItems: 'center', background: '#fff', padding: '0.5rem', borderRadius: '6px', border: '1px solid #cbd5e1' }}>
+                          <div key={tcIdx} className="admin-test-case-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 110px 40px', gap: '0.5rem', alignItems: 'center', background: '#fff', padding: '0.5rem', borderRadius: '6px', border: '1px solid #cbd5e1' }}>
                             <input
                               type="text"
                               className="form-control"
@@ -472,7 +472,7 @@ export const AdminTestCreate = () => {
           </div>
         )}
 
-        <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
+        <div className="admin-editor-footer" style={{ marginTop: '2rem', display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
           <Link to="/admin/tests" className="btn btn-secondary">
             Cancel
           </Link>

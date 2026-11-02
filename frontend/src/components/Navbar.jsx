@@ -28,9 +28,9 @@ export const Navbar = () => {
       </Link>
 
       {isAuthenticated && (
-        <nav style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+        <nav className="navbar-actions" style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
           {isAdmin && (
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <div className="navbar-links" style={{ display: 'flex', gap: '0.5rem' }}>
               <Link to="/admin/dashboard" className={`btn btn-ghost ${location.pathname === '/admin/dashboard' ? 'btn-primary' : ''}`}>
                 <LayoutDashboard size={16} />
                 <span>Dashboard</span>
@@ -51,7 +51,7 @@ export const Navbar = () => {
           )}
 
           {isStudent && (
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <div className="navbar-links" style={{ display: 'flex', gap: '0.5rem' }}>
               <Link to="/student/dashboard" className="btn btn-ghost">
                 <LayoutDashboard size={16} />
                 <span>My Tests</span>
@@ -59,8 +59,8 @@ export const Navbar = () => {
             </div>
           )}
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', borderLeft: '1px solid var(--border-light)', paddingLeft: '1.25rem' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', fontSize: '0.85rem' }}>
+          <div className="navbar-profile" style={{ display: 'flex', alignItems: 'center', gap: '1rem', borderLeft: '1px solid var(--border-light)', paddingLeft: '1.25rem' }}>
+            <div className="navbar-user-details" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', fontSize: '0.85rem' }}>
               <span style={{ fontWeight: 600, color: 'var(--text-main)' }}>
                 {user?.fullName || user?.email}
               </span>

@@ -65,8 +65,8 @@ export const Login = () => {
   };
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '2rem', background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)' }}>
-      <div style={{ width: '100%', maxWidth: '460px' }}>
+    <div className="login-page" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '2rem', background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)' }}>
+      <div className="login-content" style={{ width: '100%', maxWidth: '460px' }}>
         {/* Header Logo */}
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '56px', height: '56px', borderRadius: '14px', background: 'linear-gradient(135deg, #2563eb, #1e40af)', color: 'white', boxShadow: '0 10px 20px rgba(37, 99, 235, 0.25)', marginBottom: '1rem' }}>
@@ -81,7 +81,7 @@ export const Login = () => {
         </div>
 
         {/* Card */}
-        <div className="card" style={{ padding: '2rem', boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04)' }}>
+        <div className="card login-card" style={{ padding: '2rem', boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04)' }}>
           {/* Tabs */}
           <div style={{ display: 'flex', borderBottom: '1px solid var(--border-light)', marginBottom: '1.5rem', gap: '0.5rem' }}>
             <button
@@ -154,7 +154,7 @@ export const Login = () => {
                   </div>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+                <div className="login-registration-fields" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
                   <div className="form-group">
                     <label className="form-label">Roll Number</label>
                     <input
@@ -226,7 +226,7 @@ export const Login = () => {
           {/* Quick Demo Credentials Autofill */}
           <div style={{ marginTop: '1.5rem', paddingTop: '1.25rem', borderTop: '1px dashed var(--border-light)', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
             <span style={{ fontWeight: 600, display: 'block', marginBottom: '0.5rem' }}>Quick Fill Test Accounts:</span>
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <div className="login-demo-buttons" style={{ display: 'flex', gap: '0.5rem' }}>
               <button
                 type="button"
                 onClick={() => setPreset('admin')}
