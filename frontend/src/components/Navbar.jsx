@@ -14,7 +14,7 @@ export const Navbar = () => {
   };
 
   // Hide navbar on landing entry, admin login, and examination screen
-  if (location.pathname === '/' || location.pathname === '/entry' || location.pathname === '/admin/login' || location.pathname.startsWith('/student/test/')) {
+  if (location.pathname === '/' || location.pathname === '/entry' || location.pathname === '/login' || location.pathname === '/admin/login' || location.pathname.startsWith('/student/test/')) {
     return null;
   }
 

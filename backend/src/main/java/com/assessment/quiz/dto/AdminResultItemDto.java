@@ -20,7 +20,9 @@ public class AdminResultItemDto {
     private String section;
     private String email;
     private Integer mcqScore;
+    private Integer maxMcqScore;
     private Integer codingScore;
+    private Integer maxCodingScore;
     private Integer totalScore;
     private Integer maxMarks;
     private Double percentage;

@@ -2,6 +2,7 @@ package com.assessment.quiz.service;
 
 import com.assessment.quiz.dto.AdminDashboardStatsDto;
 import com.assessment.quiz.dto.AdminResultItemDto;
+import com.assessment.quiz.dto.SubmitAttemptResponse;
 import com.assessment.quiz.dto.UserDto;
 import com.assessment.quiz.entity.AttemptStatus;
 import com.assessment.quiz.entity.Role;
@@ -34,6 +35,7 @@ public class AdminService {
     private final StudentProfileRepository studentProfileRepository;
     private final TestRepository testRepository;
     private final TestAttemptRepository testAttemptRepository;
+    private final AttemptService attemptService;
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -138,6 +140,7 @@ public class AdminService {
 
     private AdminResultItemDto mapToResultItemDto(TestAttempt a) {
         StudentProfile p = a.getStudent().getStudentProfile();
+        SubmitAttemptResponse result = attemptService.getResult(a.getId(), null, true);
         return AdminResultItemDto.builder()
                 .attemptId(a.getId())
                 .testId(a.getTest().getId())
@@ -148,11 +151,13 @@ public class AdminService {
                 .studentClass(p != null ? p.getStudentClass() : "")
                 .section(p != null ? p.getSection() : "")
                 .email(a.getStudent().getEmail())
-                .mcqScore(a.getMcqScore())
-                .codingScore(a.getCodingScore())
-                .totalScore(a.getTotalScore())
-                .maxMarks(a.getTest().getTotalMarks())
-                .percentage(a.getPercentage())
+                .mcqScore(result.getMcqScore())
+                .maxMcqScore(result.getMaxMcqScore())
+                .codingScore(result.getCodingScore())
+                .maxCodingScore(result.getMaxCodingScore())
+                .totalScore(result.getTotalScore())
+                .maxMarks(result.getMaxTotalScore())
+                .percentage(result.getPercentage())
                 .status(a.getStatus().name())
                 .startTime(a.getStartTime())
                 .submittedAt(a.getSubmittedAt())

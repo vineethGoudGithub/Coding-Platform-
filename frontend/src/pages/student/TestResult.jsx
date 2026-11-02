@@ -48,7 +48,10 @@ export const TestResult = () => {
     );
   }
 
-  const isPassed = result.percentage >= 40.0;
+  const isPassed = result.status === 'PASSED';
+  const questionResults = result.questionResults || [];
+  const mcqQuestionCount = questionResults.filter((question) => question.questionType === 'MCQ').length;
+  const codingQuestionCount = questionResults.filter((question) => question.questionType === 'CODING').length;
 
   return (
     <div className="main-content" style={{ maxWidth: '960px' }}>
@@ -107,7 +110,7 @@ export const TestResult = () => {
               {result.mcqScore} <span style={{ fontSize: '1.1rem', fontWeight: 500, color: '#64748b' }}>/ {result.maxMcqScore}</span>
             </div>
             <span style={{ fontSize: '0.8rem', color: '#10b981', fontWeight: 600 }}>
-              {result.mcqsCorrect} of 8 correct
+              {result.mcqsCorrect} of {mcqQuestionCount} correct
             </span>
           </div>
 
@@ -118,7 +121,7 @@ export const TestResult = () => {
               {result.codingScore} <span style={{ fontSize: '1.1rem', fontWeight: 500, color: '#64748b' }}>/ {result.maxCodingScore}</span>
             </div>
             <span style={{ fontSize: '0.8rem', color: '#10b981', fontWeight: 600 }}>
-              {result.codingProblemsSolved} of 2 solved
+              {result.codingProblemsSolved} of {codingQuestionCount} solved
             </span>
           </div>
 

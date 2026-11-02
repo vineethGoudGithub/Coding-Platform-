@@ -165,8 +165,8 @@ export const AdminResults = () => {
                     <th style={{ padding: '0.85rem 1.25rem' }}>Section</th>
                     <th style={{ padding: '0.85rem 1.25rem' }}>Roll No</th>
                     <th style={{ padding: '0.85rem 1.25rem' }}>Test</th>
-                    <th style={{ padding: '0.85rem 1.25rem' }}>MCQ Score</th>
-                    <th style={{ padding: '0.85rem 1.25rem' }}>Coding Score</th>
+                    <th style={{ padding: '0.85rem 1.25rem' }}>MCQ Marks</th>
+                    <th style={{ padding: '0.85rem 1.25rem' }}>Coding Marks</th>
                     <th style={{ padding: '0.85rem 1.25rem' }}>Total</th>
                     <th style={{ padding: '0.85rem 1.25rem' }}>Status</th>
                     <th style={{ padding: '0.85rem 1.25rem' }}>Submitted At</th>
@@ -191,8 +191,8 @@ export const AdminResults = () => {
                         <td style={{ padding: '0.85rem 1.25rem', color: '#475569' }}>{r.section || 'N/A'}</td>
                         <td style={{ padding: '0.85rem 1.25rem', color: '#475569' }}>{r.rollNumber || 'N/A'}</td>
                         <td style={{ padding: '0.85rem 1.25rem', color: '#2563eb', fontWeight: 500 }}>{r.testTitle}</td>
-                        <td style={{ padding: '0.85rem 1.25rem' }}>{r.mcqScore} / 8</td>
-                        <td style={{ padding: '0.85rem 1.25rem' }}>{r.codingScore} / 2</td>
+                        <td style={{ padding: '0.85rem 1.25rem' }}>{r.mcqScore ?? 0} / {r.maxMcqScore ?? 0}</td>
+                        <td style={{ padding: '0.85rem 1.25rem' }}>{r.codingScore ?? 0} / {r.maxCodingScore ?? 0}</td>
                         <td style={{ padding: '0.85rem 1.25rem', fontWeight: 700 }}>
                           {r.totalScore} / {r.maxMarks} ({r.percentage}%)
                         </td>

@@ -82,6 +82,10 @@ public class AttemptServiceTest {
                 .status(AttemptStatus.IN_PROGRESS)
                 .startTime(LocalDateTime.now().minusMinutes(10))
                 .endTime(LocalDateTime.now().plusMinutes(35))
+                .mcqScore(0)
+                .codingScore(0)
+                .totalScore(0)
+                .percentage(0.0)
                 .build();
 
         alreadySubmittedAttempt = TestAttempt.builder()
@@ -150,7 +154,10 @@ public class AttemptServiceTest {
 
         assertNotNull(response);
         assertEquals(1, response.getMcqScore());
+        assertEquals(0, response.getCodingScore());
         assertEquals(1, response.getTotalScore());
+        assertEquals(1, response.getMaxTotalScore());
+        assertEquals(100.0, response.getPercentage());
         assertEquals("PASSED", response.getStatus());
         assertEquals(AttemptStatus.SUBMITTED, inProgressAttempt.getStatus());
         verify(testAttemptRepository, times(1)).save(inProgressAttempt);

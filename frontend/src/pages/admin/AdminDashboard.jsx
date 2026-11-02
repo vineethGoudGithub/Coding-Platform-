@@ -154,8 +154,8 @@ export const AdminDashboard = () => {
                         <td style={{ padding: '0.85rem 1.25rem', color: '#64748b' }}>{r.rollNumber || 'N/A'}</td>
                         <td style={{ padding: '0.85rem 1.25rem', color: '#64748b' }}>{r.section || 'N/A'}</td>
                         <td style={{ padding: '0.85rem 1.25rem', color: '#2563eb', fontWeight: 500 }}>{r.testTitle}</td>
-                        <td style={{ padding: '0.85rem 1.25rem' }}>{r.mcqScore} / 8</td>
-                        <td style={{ padding: '0.85rem 1.25rem' }}>{r.codingScore} / 2</td>
+                        <td style={{ padding: '0.85rem 1.25rem' }}>{r.mcqScore ?? 0} / {r.maxMcqScore ?? 0}</td>
+                        <td style={{ padding: '0.85rem 1.25rem' }}>{r.codingScore ?? 0} / {r.maxCodingScore ?? 0}</td>
                         <td style={{ padding: '0.85rem 1.25rem', fontWeight: 700 }}>
                           {r.totalScore} / {r.maxMarks} ({r.percentage}%)
                         </td>
