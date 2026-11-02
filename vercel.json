@@ -26,7 +26,7 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "https://your-backend-api.com/api/$1"
+      "destination": "https://quiz-5d43.onrender.com/api/$1"
     },
     {
       "source": "/(.*)",
