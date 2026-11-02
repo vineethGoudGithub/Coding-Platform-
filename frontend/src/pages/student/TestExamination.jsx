@@ -50,6 +50,11 @@ export const TestExamination = () => {
   // Final submission confirmation modal
   const [showSubmitModal, setShowSubmitModal] = useState(false);
   const [submittingFinal, setSubmittingFinal] = useState(false);
+  const [tabSwitchWarnings, setTabSwitchWarnings] = useState(0);
+  const [tabSwitchWarning, setTabSwitchWarning] = useState(null);
+  const [fullscreenMode, setFullscreenMode] = useState('checking');
+  const [fullscreenError, setFullscreenError] = useState('');
+  const tabSwitchCountRef = useRef(0);
 
   // Ref to track latest answers for debounced autosave
   const answersRef = useRef(answers);
@@ -127,29 +132,84 @@ export const TestExamination = () => {
 
   // 3. Browser Refresh / Leave Protection & Anti-Cheat Monitoring
   useEffect(() => {
+    if (loading) return undefined;
+
+    const warningStorageKey = `quiz-tab-switch-warnings-${attemptId}`;
+    let savedWarningCount = 0;
+    try {
+      savedWarningCount = Number(sessionStorage.getItem(warningStorageKey) || 0);
+    } catch (error) {
+      console.warn('Could not read tab-switch warning count:', error);
+    }
+    const initialWarningCount = Number.isFinite(savedWarningCount)
+      ? Math.max(0, savedWarningCount)
+      : 0;
+    tabSwitchCountRef.current = initialWarningCount;
+    setTabSwitchWarnings(Math.min(initialWarningCount, 3));
+
+    const supportsFullscreen =
+      document.fullscreenEnabled &&
+      typeof document.documentElement.requestFullscreen === 'function';
+    setFullscreenMode(
+      document.fullscreenElement ? 'active' : supportsFullscreen ? 'required' : 'unavailable'
+    );
+
     const handleBeforeUnload = (e) => {
       e.preventDefault();
       e.returnValue = 'You have an active test session in progress. Are you sure you want to leave?';
     };
 
     const handleVisibilityChange = () => {
-      if (document.hidden) {
-        testApi.logAudit(attemptId, {
-          eventType: 'TAB_SWITCH',
-          eventData: 'Candidate navigated away from assessment tab'
-        }).catch(() => {});
-        showToast('Warning: Tab switch detected and logged for instructor review.', 'info', 4000);
+      if (!document.hidden) return;
+
+      const totalWarnings = tabSwitchCountRef.current + 1;
+      const warningNumber = Math.min(totalWarnings, 3);
+      tabSwitchCountRef.current = totalWarnings;
+      setTabSwitchWarnings(warningNumber);
+      setTabSwitchWarning({ number: warningNumber, total: totalWarnings });
+
+      try {
+        sessionStorage.setItem(warningStorageKey, String(totalWarnings));
+      } catch (error) {
+        console.warn('Could not persist tab-switch warning count:', error);
       }
+
+      testApi.logAudit(attemptId, {
+        eventType: 'TAB_SWITCH',
+        eventData: `Candidate switched tabs (warning ${totalWarnings})`
+      }).catch((error) => {
+        console.warn('Could not record tab-switch audit event:', error.message);
+      });
+    };
+
+    const handleFullscreenChange = () => {
+      setFullscreenMode((currentMode) => {
+        if (currentMode === 'unavailable') return currentMode;
+        return document.fullscreenElement ? 'active' : 'required';
+      });
     };
 
     window.addEventListener('beforeunload', handleBeforeUnload);
     document.addEventListener('visibilitychange', handleVisibilityChange);
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
 
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
     };
-  }, [attemptId]);
+  }, [attemptId, loading]);
+
+  const enterFullscreen = async () => {
+    setFullscreenError('');
+    try {
+      await document.documentElement.requestFullscreen();
+      setFullscreenMode('active');
+    } catch (error) {
+      console.warn('Could not enter fullscreen:', error);
+      setFullscreenError('Fullscreen could not be enabled. Check your browser permissions and try again.');
+    }
+  };
 
   // Current Question
   const currentQuestion = questions[currentIndex];
@@ -378,6 +438,14 @@ export const TestExamination = () => {
             <div style={{ fontSize: '0.78rem', color: '#64748b' }}>
               Candidate: <strong>{user?.fullName || user?.email}</strong> | Roll: <strong>{user?.rollNumber || 'N/A'}</strong>
             </div>
+            <div className="exam-warning-counter" role="status">
+              Tab-switch warnings: {tabSwitchWarnings}/3
+            </div>
+            {fullscreenMode === 'unavailable' && (
+              <div className="exam-fullscreen-notice" role="status">
+                Fullscreen is unavailable in this browser.
+              </div>
+            )}
           </div>
         </div>
 
@@ -831,6 +899,57 @@ export const TestExamination = () => {
           </div>
         </aside>
       </div>
+
+      {(fullscreenMode === 'checking' || fullscreenMode === 'required') && (
+        <div className="exam-security-overlay">
+          <section className="card exam-security-dialog" role="dialog" aria-modal="true" aria-labelledby="fullscreen-title">
+            <div className="exam-security-icon">
+              <Maximize2 size={26} />
+            </div>
+            <h2 id="fullscreen-title">Fullscreen required</h2>
+            <p>
+              Enter fullscreen to continue your assessment. If you leave fullscreen, return here and
+              re-enter it to resume. Switching to another tab will count as a warning.
+            </p>
+            {fullscreenError && <p className="exam-security-error" role="alert">{fullscreenError}</p>}
+            <button type="button" className="btn btn-primary" onClick={enterFullscreen} disabled={fullscreenMode === 'checking'}>
+              <Maximize2 size={17} />
+              {fullscreenMode === 'checking' ? 'Preparing assessment...' : 'Enter Fullscreen'}
+            </button>
+            {fullscreenError && (
+              <button
+                type="button"
+                className="btn btn-ghost exam-fullscreen-continue"
+                onClick={() => setFullscreenMode('unavailable')}
+              >
+                Continue without fullscreen
+              </button>
+            )}
+          </section>
+        </div>
+      )}
+
+      {tabSwitchWarning && (
+        <div className="exam-security-overlay exam-warning-overlay">
+          <section className="card exam-security-dialog" role="alertdialog" aria-modal="true" aria-labelledby="tab-warning-title">
+            <div className="exam-security-icon exam-warning-icon">
+              <AlertTriangle size={26} />
+            </div>
+            <h2 id="tab-warning-title">
+              Tab-switch warning {tabSwitchWarning.number} of 3
+            </h2>
+            <p>
+              Switching tabs during an assessment is recorded for your instructor.
+              {tabSwitchWarning.total >= 3
+                ? ' You have received all 3 warnings. You may continue, but further switches will still be recorded.'
+                : ` Please stay on this test tab. ${3 - tabSwitchWarning.total} warning${3 - tabSwitchWarning.total === 1 ? '' : 's'} remaining.`}
+            </p>
+            <button type="button" className="btn btn-primary" onClick={() => setTabSwitchWarning(null)}>
+              I Understand
+            </button>
+          </section>
+        </div>
+      )}
 
       {/* 3. Final Submit Confirmation Modal as required */}
       {showSubmitModal && (

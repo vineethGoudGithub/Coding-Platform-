@@ -74,9 +74,9 @@ export const CandidateDirectEntry = () => {
   };
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)' }}>
+    <div className="entry-page" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)' }}>
       {/* Top Header */}
-      <header style={{ padding: '1rem 2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border-light)', background: 'rgba(255, 255, 255, 0.9)', backdropFilter: 'blur(8px)' }}>
+      <header className="entry-header" style={{ padding: '1rem 2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border-light)', background: 'rgba(255, 255, 255, 0.9)', backdropFilter: 'blur(8px)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', fontWeight: 700, color: 'var(--primary-700)', fontSize: '1.15rem' }}>
           <span className="brand-icon">
             <Terminal size={20} />
@@ -86,8 +86,8 @@ export const CandidateDirectEntry = () => {
       </header>
 
       {/* Main Form Centerpiece */}
-      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem 1rem' }}>
-        <div style={{ maxWidth: '780px', width: '100%' }}>
+      <div className="entry-main" style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem 1rem' }}>
+        <div className="entry-content" style={{ maxWidth: '780px', width: '100%' }}>
           {/* Header Title */}
           <div style={{ textAlign: 'center', marginBottom: '1.75rem' }}>
             <h1 style={{ fontSize: '2.1rem', fontWeight: 800, color: '#0f172a', letterSpacing: '-0.025em' }}>
@@ -98,9 +98,9 @@ export const CandidateDirectEntry = () => {
             </p>
           </div>
 
-          <div className="card" style={{ padding: '2rem', boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04)' }}>
+          <div className="card entry-card" style={{ padding: '2rem', boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04)' }}>
             {/* Assessment Structure Preview */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '0.75rem', padding: '1rem', background: '#f8fafc', borderRadius: '10px', border: '1px solid #e2e8f0', marginBottom: '1.75rem' }}>
+            <div className="entry-test-summary" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '0.75rem', padding: '1rem', background: '#f8fafc', borderRadius: '10px', border: '1px solid #e2e8f0', marginBottom: '1.75rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.875rem', color: '#1e293b' }}>
                 <Clock size={16} style={{ color: '#2563eb' }} />
                 <span>Duration: <strong>{selectedTest?.durationMinutes || 45} Mins</strong></span>
@@ -121,14 +121,15 @@ export const CandidateDirectEntry = () => {
 
             {/* Candidate Details Form */}
             <form onSubmit={handleStartTest}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+              <div className="entry-form-heading" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
                 <h2 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#0f172a' }}>Enter Candidate Details</h2>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
+              <div className="entry-primary-fields" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
                 <div className="form-group" style={{ marginBottom: 0 }}>
-                  <label className="form-label">Full Name <span style={{ color: '#ef4444' }}>*</span></label>
+                  <label className="form-label" htmlFor="candidate-name">Full Name <span style={{ color: '#ef4444' }}>*</span></label>
                   <input
+                    id="candidate-name"
                     type="text"
                     className="form-control"
                     placeholder="e.g. Rahul Kumar"
@@ -139,8 +140,9 @@ export const CandidateDirectEntry = () => {
                 </div>
 
                 <div className="form-group" style={{ marginBottom: 0 }}>
-                  <label className="form-label">Email Address <span style={{ color: '#ef4444' }}>*</span></label>
+                  <label className="form-label" htmlFor="candidate-email">Email Address <span style={{ color: '#ef4444' }}>*</span></label>
                   <input
+                    id="candidate-email"
                     type="email"
                     className="form-control"
                     placeholder="e.g. rahul@example.com"
@@ -151,10 +153,11 @@ export const CandidateDirectEntry = () => {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem', marginBottom: '1.5rem' }}>
+              <div className="entry-academic-fields" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem', marginBottom: '1.5rem' }}>
                 <div className="form-group" style={{ marginBottom: 0 }}>
-                  <label className="form-label">Class / Grade <span style={{ color: '#ef4444' }}>*</span></label>
+                  <label className="form-label" htmlFor="candidate-class">Class / Grade <span style={{ color: '#ef4444' }}>*</span></label>
                   <input
+                    id="candidate-class"
                     type="text"
                     className="form-control"
                     placeholder="e.g. Class 10 / B.Tech"
@@ -165,8 +168,9 @@ export const CandidateDirectEntry = () => {
                 </div>
 
                 <div className="form-group" style={{ marginBottom: 0 }}>
-                  <label className="form-label">Section <span style={{ color: '#ef4444' }}>*</span></label>
+                  <label className="form-label" htmlFor="candidate-section">Section <span style={{ color: '#ef4444' }}>*</span></label>
                   <input
+                    id="candidate-section"
                     type="text"
                     className="form-control"
                     placeholder="e.g. A, B, CSE-A"
@@ -177,8 +181,9 @@ export const CandidateDirectEntry = () => {
                 </div>
 
                 <div className="form-group" style={{ marginBottom: 0 }}>
-                  <label className="form-label">Roll Number</label>
+                  <label className="form-label" htmlFor="candidate-roll-number">Roll Number</label>
                   <input
+                    id="candidate-roll-number"
                     type="text"
                     className="form-control"
                     placeholder="e.g. 12345"
@@ -189,12 +194,14 @@ export const CandidateDirectEntry = () => {
               </div>
 
               {/* Instructions checklist */}
-              <div style={{ background: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: '8px', padding: '0.85rem 1rem', marginBottom: '1.5rem', fontSize: '0.825rem', color: '#1e40af' }}>
+              <div className="entry-rules" style={{ background: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: '8px', padding: '0.85rem 1rem', marginBottom: '1.5rem', fontSize: '0.825rem', color: '#1e40af' }}>
                 <div style={{ fontWeight: 700, marginBottom: '0.35rem' }}>Test Session Rules:</div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
                   <span>✓ The countdown timer begins immediately upon clicking "START TEST".</span>
                   <span>✓ MCQ answers autosave automatically as you click each option.</span>
                   <span>✓ Java code editor features syntax highlighting and tests against hidden cases.</span>
+                  <span>✓ Fullscreen is required when supported; re-enter it if you exit during the test.</span>
+                  <span>✓ Tab switches are logged. After 3 warnings, you may continue, but further switches are still recorded.</span>
                 </div>
               </div>
 

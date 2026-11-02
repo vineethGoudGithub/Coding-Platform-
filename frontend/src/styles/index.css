@@ -424,6 +424,83 @@ button, input, select, textarea {
   flex-shrink: 0;
 }
 
+.exam-warning-counter,
+.exam-fullscreen-notice {
+  margin-top: 0.2rem;
+  color: #64748b;
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+
+.exam-fullscreen-notice {
+  color: #b45309;
+}
+
+.exam-security-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 110;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgb(15 23 42 / 72%);
+  backdrop-filter: blur(4px);
+}
+
+.exam-warning-overlay {
+  z-index: 120;
+}
+
+.exam-security-dialog {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(100%, 440px);
+  padding: 1.75rem;
+  text-align: center;
+}
+
+.exam-security-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 1rem;
+  border-radius: 50%;
+  background: var(--primary-50);
+  color: var(--primary-700);
+}
+
+.exam-warning-icon {
+  background: var(--warning-bg);
+  color: #b45309;
+}
+
+.exam-security-dialog h2 {
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.exam-security-dialog p {
+  margin-bottom: 1.25rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.exam-security-dialog > .btn {
+  min-height: 44px;
+}
+
+.exam-security-error {
+  color: #b91c1c !important;
+}
+
+.exam-fullscreen-continue {
+  margin-top: 0.5rem;
+}
+
 .exam-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 320px;
@@ -550,6 +627,11 @@ button, input, select, textarea {
     overflow-wrap: anywhere;
   }
 
+  .exam-warning-counter,
+  .exam-fullscreen-notice {
+    font-size: 0.68rem;
+  }
+
   .exam-timer {
     width: 100%;
     min-width: 0;
@@ -648,6 +730,10 @@ button, input, select, textarea {
   .exam-submit-modal {
     padding: 1.25rem !important;
   }
+
+  .exam-security-dialog {
+    padding: 1.25rem;
+  }
 }
 
 @media (max-width: 360px) {
@@ -685,5 +771,107 @@ button, input, select, textarea {
 
   .exam-question-footer > .btn:last-child {
     justify-self: end;
+  }
+}
+
+@media (max-width: 768px) {
+  .entry-header {
+    padding: 0.75rem 1rem !important;
+  }
+
+  .entry-main {
+    align-items: flex-start !important;
+    padding: 1.25rem 1rem calc(1.5rem + env(safe-area-inset-bottom)) !important;
+  }
+
+  .entry-content {
+    max-width: 560px;
+  }
+
+  .entry-content > div:first-child {
+    margin-bottom: 1.25rem !important;
+  }
+
+  .entry-content > div:first-child h1 {
+    font-size: 1.65rem !important;
+  }
+
+  .entry-card {
+    padding: 1.25rem !important;
+  }
+
+  .entry-test-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 0.75rem !important;
+    padding: 0.9rem !important;
+    margin-bottom: 1.25rem !important;
+  }
+
+  .entry-test-summary > div {
+    min-width: 0;
+    align-items: flex-start !important;
+    font-size: 0.82rem !important;
+  }
+
+  .entry-test-summary svg {
+    flex: 0 0 auto;
+  }
+
+  .entry-primary-fields,
+  .entry-academic-fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 0.85rem !important;
+  }
+
+  .entry-primary-fields > *,
+  .entry-academic-fields > * {
+    min-width: 0;
+  }
+
+  .entry-card .form-label {
+    line-height: 1.35;
+  }
+
+  .entry-card .form-control {
+    min-width: 0;
+    min-height: 48px;
+    font-size: 16px;
+  }
+
+  .entry-rules {
+    line-height: 1.55;
+  }
+}
+
+@media (max-width: 540px) {
+  .entry-main {
+    padding: 1rem 0.75rem calc(1.25rem + env(safe-area-inset-bottom)) !important;
+  }
+
+  .entry-card {
+    padding: 1rem !important;
+  }
+
+  .entry-test-summary {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .entry-primary-fields,
+  .entry-academic-fields {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 0.75rem !important;
+  }
+
+  .entry-form-heading h2 {
+    font-size: 1.05rem !important;
+  }
+
+  .entry-rules {
+    padding: 0.85rem !important;
+    margin-bottom: 1.25rem !important;
+  }
+
+  .entry-rules > div:last-child {
+    gap: 0.45rem !important;
   }
 }
