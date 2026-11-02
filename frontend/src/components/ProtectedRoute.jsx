@@ -9,9 +9,8 @@ export const ProtectedRoute = ({ children, requiredRole }) => {
   if (loading) {
     return (
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', gap: '0.75rem' }}>
-        <div style={{ width: '28px', height: '28px', border: '3px solid #e2e8f0', borderTopColor: '#2563eb', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
+        <span className="loading-spinner" role="status" aria-label="Loading session" />
         <span style={{ color: '#64748b', fontWeight: 500 }}>Loading assessment environment...</span>
-        <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
       </div>
     );
   }

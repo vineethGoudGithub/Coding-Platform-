@@ -48,10 +48,23 @@
   --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@keyframes spin {
+@keyframes loading-spinner-rotate {
   to {
     transform: rotate(360deg);
   }
+}
+
+.loading-spinner {
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  border: 3px solid #cbd5e1;
+  border-top-color: #2563eb;
+  border-radius: 50%;
+  animation: loading-spinner-rotate 0.7s linear infinite;
+  transform-origin: center;
+  will-change: transform;
 }
 
 *, *::before, *::after {

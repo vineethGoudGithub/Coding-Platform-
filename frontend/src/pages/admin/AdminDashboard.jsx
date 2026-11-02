@@ -61,7 +61,7 @@ export const AdminDashboard = () => {
 
       {loading ? (
         <div style={{ textAlign: 'center', padding: '4rem', color: '#64748b' }}>
-          <div style={{ width: '32px', height: '32px', border: '3px solid #cbd5e1', borderTopColor: '#2563eb', borderRadius: '50%', margin: '0 auto 1rem', animation: 'spin 1s linear infinite' }} />
+          <span className="loading-spinner" role="status" aria-label="Loading dashboard" style={{ margin: '0 auto 1rem' }} />
           Loading metrics...
         </div>
       ) : (

@@ -31,7 +31,7 @@ export const TestResult = () => {
   if (loading) {
     return (
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '80vh', gap: '0.75rem' }}>
-        <div style={{ width: '32px', height: '32px', border: '3px solid #cbd5e1', borderTopColor: '#2563eb', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
+        <span className="loading-spinner" role="status" aria-label="Loading result" />
         <span style={{ fontWeight: 600, color: '#475569' }}>Calculating assessment score...</span>
       </div>
     );
