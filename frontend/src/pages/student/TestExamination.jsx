@@ -360,22 +360,19 @@ export const TestExamination = () => {
   }
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: '#f8fafc' }}>
+    <div className="exam-page" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: '#f8fafc' }}>
       {/* 1. Assessment Top Header */}
-      <header style={{
+      <header className="exam-header" style={{
         position: 'sticky',
         top: 0,
         zIndex: 40,
         background: '#ffffff',
         borderBottom: '1px solid #e2e8f0',
         padding: '0.75rem 1.5rem',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
         boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
       }}>
         {/* Test Name & Student */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+        <div className="exam-identity">
           <div>
             <h1 style={{ fontSize: '1.15rem', fontWeight: 700, color: '#0f172a' }}>{test?.title || 'Java Test KU'}</h1>
             <div style={{ fontSize: '0.78rem', color: '#64748b' }}>
@@ -385,10 +382,7 @@ export const TestExamination = () => {
         </div>
 
         {/* Center: Prominent Timer */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.6rem',
+        <div className="exam-timer" style={{
           background: remainingSeconds < 300 ? '#fef2f2' : '#f0fdf4',
           color: remainingSeconds < 300 ? '#b91c1c' : '#15803d',
           border: remainingSeconds < 300 ? '1px solid #fecaca' : '1px solid #bbf7d0',
@@ -403,7 +397,7 @@ export const TestExamination = () => {
         </div>
 
         {/* Right: Submit Button */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+        <div className="exam-submit-area">
           <button
             onClick={() => setShowSubmitModal(true)}
             className="btn btn-success"
@@ -415,14 +409,14 @@ export const TestExamination = () => {
       </header>
 
       {/* 2. Main Examination Body */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', flex: 1, height: 'calc(100vh - 65px)', overflow: 'hidden' }}>
+      <div className="exam-layout">
         {/* Left: Active Question Area */}
-        <div style={{ overflowY: 'auto', padding: '1.5rem 2rem', display: 'flex', flexDirection: 'column' }}>
+        <div className="exam-question-area">
           {currentQuestion && (
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
               {/* Question Header Bar */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', borderBottom: '1px solid #e2e8f0', paddingBottom: '0.75rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+              <div className="exam-question-heading" style={{ marginBottom: '1.25rem', borderBottom: '1px solid #e2e8f0', paddingBottom: '0.75rem' }}>
+                <div className="exam-question-meta">
                   <span style={{ fontSize: '1.15rem', fontWeight: 700, color: '#1e40af' }}>
                     Question {currentIndex + 1} of {questions.length}
                   </span>
@@ -456,13 +450,14 @@ export const TestExamination = () => {
                     {currentQuestion.problemStatement}
                   </h2>
 
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', maxWidth: '750px' }}>
+                  <div className="exam-options" style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', maxWidth: '750px' }}>
                     {currentQuestion.options?.map((option) => {
                       const isSelected = answers[currentQuestion.id]?.selectedOptionId === option.id;
                       return (
                         <div
                           key={option.id}
                           onClick={() => handleSelectOption(option.id)}
+                          className="exam-option"
                           style={{
                             display: 'flex',
                             alignItems: 'center',
@@ -486,7 +481,7 @@ export const TestExamination = () => {
                             justifyContent: 'center',
                             flexShrink: 0
                           }} />
-                          <div style={{ display: 'flex', gap: '0.5rem', fontSize: '0.95rem', color: '#1e293b' }}>
+                          <div className="exam-option-text" style={{ display: 'flex', gap: '0.5rem', fontSize: '0.95rem', color: '#1e293b' }}>
                             <strong style={{ color: isSelected ? '#1d4ed8' : '#64748b' }}>{option.optionKey}.</strong>
                             <span>{option.optionText}</span>
                           </div>
@@ -499,9 +494,9 @@ export const TestExamination = () => {
 
               {/* B. CODING QUESTION VIEW */}
               {currentQuestion.questionType === 'CODING' && (
-                <div style={{ display: 'grid', gridTemplateColumns: '42% 58%', gap: '1.25rem', flex: 1, minHeight: '520px' }}>
+                <div className="coding-layout" style={{ flex: 1 }}>
                   {/* Left: Problem Specs */}
-                  <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '10px', padding: '1.25rem', overflowY: 'auto' }}>
+                  <div className="coding-problem" style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '10px', padding: '1.25rem', overflowY: 'auto' }}>
                     <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#0f172a', marginBottom: '0.75rem' }}>
                       {currentQuestion.title}
                     </h3>
@@ -547,7 +542,7 @@ export const TestExamination = () => {
                   </div>
 
                   {/* Right: Monaco Code Editor & Execution Panel */}
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                  <div className="coding-workspace" style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                     {/* Editor Toolbar */}
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#1e293b', color: '#f8fafc', padding: '0.5rem 1rem', borderRadius: '8px 8px 0 0', fontSize: '0.85rem' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -568,7 +563,7 @@ export const TestExamination = () => {
                     </div>
 
                     {/* Monaco Editor Container */}
-                    <div style={{ borderRadius: '0 0 8px 8px', overflow: 'hidden', border: '1px solid #334155', minHeight: '300px', flex: 1 }}>
+                    <div className="coding-editor" style={{ borderRadius: '0 0 8px 8px', overflow: 'hidden', border: '1px solid #334155', minHeight: '300px', flex: 1 }}>
                       <Editor
                         height="100%"
                         language="java"
@@ -594,11 +589,11 @@ export const TestExamination = () => {
                     </div>
 
                     {/* Action Buttons: RUN CODE & SUBMIT CODE */}
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.75rem' }}>
+                    <div className="coding-actions" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.75rem' }}>
                       <span style={{ fontSize: '0.75rem', color: '#64748b' }}>
                         Shortcut: Click Run or press Run Code
                       </span>
-                      <div style={{ display: 'flex', gap: '0.6rem' }}>
+                      <div className="coding-action-buttons" style={{ display: 'flex', gap: '0.6rem' }}>
                         <button
                           type="button"
                           onClick={handleRunCode}
@@ -740,7 +735,7 @@ export const TestExamination = () => {
               )}
 
               {/* Navigation Footer (Previous / Next) */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '1.5rem', paddingTop: '1rem', borderTop: '1px solid #e2e8f0' }}>
+              <div className="exam-question-footer" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '1.5rem', paddingTop: '1rem', borderTop: '1px solid #e2e8f0' }}>
                 <button
                   type="button"
                   onClick={() => setCurrentIndex((prev) => Math.max(0, prev - 1))}
@@ -768,7 +763,7 @@ export const TestExamination = () => {
         </div>
 
         {/* Right: Question Navigator Panel */}
-        <aside style={{ background: '#ffffff', borderLeft: '1px solid #e2e8f0', padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+        <aside className="exam-sidebar" style={{ background: '#ffffff', borderLeft: '1px solid #e2e8f0', padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           <div>
             <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#0f172a', marginBottom: '0.25rem' }}>
               Question Navigator
@@ -840,7 +835,7 @@ export const TestExamination = () => {
       {/* 3. Final Submit Confirmation Modal as required */}
       {showSubmitModal && (
         <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(15, 23, 42, 0.65)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100, padding: '1rem' }}>
-          <div className="card" style={{ maxWidth: '480px', width: '100%', padding: '1.75rem', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}>
+          <div className="card exam-submit-modal" style={{ maxWidth: '480px', width: '100%', padding: '1.75rem', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: unansweredCount > 0 ? '#b45309' : '#059669', marginBottom: '1rem' }}>
               <AlertTriangle size={28} />
               <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#0f172a' }}>Submit Assessment?</h3>
