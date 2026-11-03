@@ -111,6 +111,12 @@ cd backend
 
 The backend will start at `http://localhost:8080`. Flyway will automatically run migrations `V1__create_schema.sql` and `V2__seed_initial_assessment.sql`.
 
+### Deploying the Backend to Render
+
+The repository includes a Render Blueprint in `render.yaml`. For the existing `quiz-5d43` service, sync this Blueprint or set the equivalent Render settings (Docker runtime, root directory `backend`, Dockerfile `./Dockerfile`, health check path `/api/health`). Keep the existing service name so the frontend's API proxy continues to use the same URL. Render's assigned `PORT` is used automatically. Set `DB_URL`, `DB_USERNAME`, `DB_PASSWORD`, and a strong `JWT_SECRET` in the Render service environment. Do not commit these values.
+
+The root URL (`/`) and `/api/health` return `{"status":"UP"}` without requiring authentication. Once the service is deployed, verify `https://<service-name>.onrender.com/api/health` returns HTTP 200.
+
 ### 4. Run Frontend (React Vite)
 In a second terminal window:
 ```powershell
